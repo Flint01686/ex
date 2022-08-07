@@ -16,14 +16,14 @@
     <button v-on:click="save">Save</button>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from "vue"
 
 export default {
     setup() {
         const text = ref("")
         const theme = ref("")
-        const listData = ref(JSON.parse(localStorage.getItem("list")) ?? []);
+        const listData = ref(JSON.parse(localStorage.getItem("list") ?? "[]"));
         const save = function () {
             listData.value.push({
                 id: theme.value,
@@ -31,7 +31,7 @@ export default {
             })
             localStorage.setItem("list", JSON.stringify(listData.value))
         }
-        const del = function (index) {
+        const del = function (index: number) {
             listData.value.splice(index, 1)
             localStorage.setItem("list", JSON.stringify(listData.value))
         }
